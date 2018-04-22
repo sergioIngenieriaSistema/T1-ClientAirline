@@ -10,10 +10,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Airlines</title>
+        <title>Aerolíneas y Hoteles</title>
     </head>
     <body>
-        <a href="ModelServlet">Mostrar las compañias</a>
+        <a href="ModelServlet">Ver Compañias Aéreas</a>
 
         <form action="SearchFlight" method="post">
             Aeropuerto de salida: 
@@ -32,6 +32,13 @@
             Fecha de vuelta: <input type="date" name="return">
             <input type="submit" value="Buscar vuelo">
         </form>
+        
+        <form action="SearchHotel" method="post">
+            Fecha de entrada: <input type="date" name="entryDate">
+            Fecha de salida: <input type="date" name="departureDate">
+            <input type="submit" value="Buscar hoteles">
+        </form>
+        
         <c:if test="${companies != null}">
             <table>
                 <caption>Compañias</caption>

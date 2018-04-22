@@ -15,17 +15,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.airline.Flight;
+import model.hotel.Room;
+import org.hotels.HotelFacadeREST;
+import org.hotels.RoomFacadeREST;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.airline.FlightFacadeREST;
 
 /**
  *
  * @author sldia
  */
-@WebServlet(name = "SearchFlight", urlPatterns = {"/SearchFlight"})
-public class SearchFlight extends HttpServlet {
+@WebServlet(name = "SearchRooms", urlPatterns = {"/SearchRooms"})
+public class SearchRooms extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,44 +40,32 @@ public class SearchFlight extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-        Gson gson = new Gson();
-        FlightFacadeREST flightFacadeREST = new FlightFacadeREST();
-        String flights = flightFacadeREST.findAll_JSON(String.class);
-        System.out.println("Flights: " + flights);
         
-        List<Flight> allFlights = new ArrayList();
-        List<Flight> departureFlights = new ArrayList();
-        List<Flight> returnFlights = new ArrayList();
-
-        JSONArray jsona = new JSONArray(flights);
+        RoomFacadeREST roomFacadeREST = new RoomFacadeREST();
+        String jsonRooms = roomFacadeREST.findAll_JSON(String.class);
+        System.out.println("Rooms: " + jsonRooms);
+        
+        JSONArray jsona = new JSONArray(jsonRooms);
+        List<Room> rooms = new ArrayList();
+        Room room;
+        
+        Gson gson = new Gson();
         JSONObject jsono;
+        
         for (int i = 0; i < jsona.length(); i++) {
             jsono = (JSONObject) jsona.get(i);
-            allFlights.add(gson.fromJson(jsono.toString(), Flight.class));
-        }
-
-        for (Flight flight : allFlights) {
-            if (flight.getRoute().getOrigin().getAirportName().equals(request.getParameter("origin"))
-                    && flight.getRoute().getDestination().getAirportName().equals(request.getParameter("destination"))
-                    && flight.getRoute().getDay().substring(0, 10).equals(request.getParameter("departure"))) {
-                departureFlights.add(flight);
-            }
-            if (flight.getRoute().getOrigin().getAirportName().equals(request.getParameter("destination"))
-                    && flight.getRoute().getDestination().getAirportName().equals(request.getParameter("origin"))
-                    && flight.getRoute().getDay().substring(0, 10).equals(request.getParameter("return"))) {
-                returnFlights.add(flight);
+            room = gson.fromJson(jsono.toString(), Room.class);
+            if (room.getHotel().getId().equals(request.getParameter("hotelid"))) {
+                rooms.add(room);
             }
         }
-
-        request.setAttribute("departureFlights", departureFlights);
-        request.setAttribute("returnFlights", returnFlights);
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/flights.jsp");
+        
+        request.setAttribute("rooms", rooms);
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/rooms.jsp");
         dispatcher.forward(request, response);
-
     }
 
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

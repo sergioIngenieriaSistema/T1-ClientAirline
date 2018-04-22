@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package rest;
+package org.airline;
 
 import javax.ws.rs.ClientErrorException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.WebTarget;
 
 /**
- * Jersey REST client generated for REST resource:RouteFacadeREST
- * [services.route]<br>
+ * Jersey REST client generated for REST resource:CompanyFacadeREST
+ * [services.company]<br>
  * USAGE:
  * <pre>
- *        RouteFacadeREST client = new RouteFacadeREST();
+ *        CompanyFacadeREST client = new CompanyFacadeREST();
  *        Object response = client.XXX(...);
  *        // do whatever with response
  *        client.close();
@@ -22,15 +22,15 @@ import javax.ws.rs.client.WebTarget;
  *
  * @author sldia
  */
-public class RouteFacadeREST {
+public class CompanyFacadeREST {
 
-    private WebTarget webTarget;
-    private Client client;
+    private final WebTarget webTarget;
+    private final Client client;
     private static final String BASE_URI = "http://localhost:8080/WSAirline/webresources";
 
-    public RouteFacadeREST() {
+    public CompanyFacadeREST() {
         client = javax.ws.rs.client.ClientBuilder.newClient();
-        webTarget = client.target(BASE_URI).path("services.route");
+        webTarget = client.target(BASE_URI).path("services.company");
     }
 
     public String countREST() throws ClientErrorException {

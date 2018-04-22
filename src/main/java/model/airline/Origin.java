@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package model.airline;
 
 import java.io.Serializable;
 
@@ -11,7 +11,7 @@ import java.io.Serializable;
  *
  * @author sldia
  */
-public class Destination implements Serializable{
+public class Origin implements Serializable{
     private String id;
     private String airportName;
     private String city;
@@ -40,7 +40,6 @@ public class Destination implements Serializable{
     public void setCityCode(String cityCode) {
         this.cityCode = cityCode;
     }
-
 
     public String getCity() {
         return city;
