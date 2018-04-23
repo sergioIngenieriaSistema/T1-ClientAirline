@@ -75,5 +75,16 @@ public class Room implements Serializable{
     public void setDescription(String description) {
         this.description = description;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Room) {
+            Room room = (Room) obj;
+            return this.id.equals(room.getId());
+        }else{
+            return false;
+        }
+    }
+ 
     
 }

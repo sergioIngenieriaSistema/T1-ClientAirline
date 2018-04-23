@@ -37,7 +37,7 @@
                             <td>${hotel.phone}</td>
                             <td>${hotel.numRooms}</td>
                             <td>${hotel.category}</td>
-                            <td><a href="SearchRooms?hotelid=${hotel.id}">Ver habitaciones</a></td>
+                            <td><a href="SearchRooms?hotelid=${hotel.id}&entryDate=${entryDate}&departureDate=${departureDate}">Ver habitaciones</a></td>
                         </tr>
                     </c:forEach>
                 </tbody>

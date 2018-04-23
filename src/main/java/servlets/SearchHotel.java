@@ -43,8 +43,8 @@ public class SearchHotel extends HttpServlet {
         String entryDate = request.getParameter("entryDate");
         String departureDate = request.getParameter("departureDate");
         
-        System.out.println("Entry date: " + entryDate);
-        System.out.println("Departure date: " + departureDate);
+        System.out.println("Entry date in HOTEL: " + entryDate);
+        System.out.println("Departure date in HOTEL: " + departureDate);
         
         Gson gson = new Gson();
         HotelFacadeREST hotelFacadeREST = new HotelFacadeREST();
@@ -60,6 +60,8 @@ public class SearchHotel extends HttpServlet {
         }
         
         request.setAttribute("hotels", allHotels);
+        request.setAttribute("entryDate", entryDate);
+        request.setAttribute("departureDate", departureDate);
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/hotels.jsp");
         dispatcher.forward(request, response);
     }
