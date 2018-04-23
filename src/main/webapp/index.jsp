@@ -34,8 +34,8 @@
         </form>
         
         <form action="SearchHotel" method="post">
-            Fecha de entrada: <input type="date" name="entryDate">
-            Fecha de salida: <input type="date" name="departureDate">
+            Fecha de entrada: <input type="date" name="entryDate" required>
+            Fecha de salida: <input type="date" name="departureDate" required>
             <input type="submit" value="Buscar hoteles">
         </form>
         
