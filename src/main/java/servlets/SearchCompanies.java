@@ -24,8 +24,8 @@ import org.airline.CompanyFacadeREST;
  *
  * @author sldia
  */
-@WebServlet(name = "ModelServlet", urlPatterns = {"/ModelServlet"})
-public class ModelServlet extends HttpServlet {
+@WebServlet(name = "SearchCompanies", urlPatterns = {"/SearchCompanies"})
+public class SearchCompanies extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,22 +44,11 @@ public class ModelServlet extends HttpServlet {
         JSONArray jsona = new JSONArray(companyJSON);
         JSONObject jSONObject;
         List<Company> companies = new ArrayList();
+        
         for (int i = 0; i < jsona.length(); i++) {
             jSONObject = (JSONObject) jsona.get(i);
             companies.add(gson.fromJson(jSONObject.toString(), Company.class));
         }
-        System.out.println("Size if companies is: " + companies.size());
-        
-        String company = cfrest.find_JSON(String.class, "1");
-        JSONObject jsono = new JSONObject(company);
-        System.out.println("JSON object:" + jsono);
-        
-        Company c = gson.fromJson(jsono.toString(), Company.class);
-        System.out.println("Company id:" + c.getId());
-        System.out.println("Company name:" + c.getName());
-        System.out.println("Company email:" + c.getEmail());
-        System.out.println("Company phone:" + c.getPhone());
-        System.out.println("Company code:" + c.getCode());
         
         request.setAttribute("companies", companies);
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");

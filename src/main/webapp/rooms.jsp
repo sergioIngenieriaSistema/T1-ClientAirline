@@ -3,40 +3,34 @@
     Created on : 22-abr-2018, 17:52:33
     Author     : sldia
 --%>
+<%@ include file = "includes/header.jsp" %>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Habitaciones</title>
-    </head>
-    <body>
-        <c:if test="${rooms.size() != 0 }">
-            <table>
-                <caption>Habitaciones</caption>
-                <thead>
+<c:if test="${rooms.size() != 0 && rooms != null}">
+    <div class="container mt-4">
+        <table class="table table-striped table-hover">
+            <caption>Habitaciones</caption>
+            <thead class="w3-card text-white">
+                <tr>
+                    <th>ID</th>
+                    <th>Nº DE HABITACIÓN</th>
+                    <th>TIPO DE HABITACIÓN</th>
+                    <th>PRECIO</th>
+                    <th>DISPONIBILIDAD</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach var="room" items="${rooms}">
                     <tr>
-                        <th>ID</th>
-                        <th>NÂº DE HABITACIÃ“N</th>
-                        <th>Tipo DE HABITACIÃ“N</th>
-                        <th>PRECIO</th>
-                        <th>DISPONIBILIDAD</th>
+                        <td>${room.id}</td>
+                        <td>${room.number}</td>
+                        <td>${room.type}</td>
+                        <td>${room.price}</td>
+                        <td>${room.state == 0? "No disponible": "Disponible"}</td>
                     </tr>
-                </thead>
-                <tbody>
-                    <c:forEach var="room" items="${rooms}">
-                        <tr>
-                            <td>${room.id}</td>
-                            <td>${room.number}</td>
-                            <td>${room.type}</td>
-                            <td>${room.price}</td>
-                            <td>${room.state == 0? "No disponible": "Disponible"}</td>
-                        </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
-        </c:if>
-    </body>
-</html>
+                </c:forEach>
+            </tbody>
+        </table>
+    </div>
+</c:if>
+
+<%@ include file = "includes/footer.jsp" %>

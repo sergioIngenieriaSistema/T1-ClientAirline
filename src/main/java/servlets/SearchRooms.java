@@ -24,7 +24,6 @@ import javax.servlet.http.HttpServletResponse;
 import model.hotel.Booking;
 import model.hotel.Room;
 import org.hotels.BookingFacadeREST;
-import org.hotels.HotelFacadeREST;
 import org.hotels.RoomFacadeREST;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -52,12 +51,8 @@ public class SearchRooms extends HttpServlet {
         String entryDate = request.getParameter("entryDate");
         String departureDate = request.getParameter("departureDate");
 
-        System.out.println("Entry date: " + entryDate);
-        System.out.println("Departure date: " + departureDate);
-
         RoomFacadeREST roomFacadeREST = new RoomFacadeREST();
         String jsonRooms = roomFacadeREST.findAll_JSON(String.class);
-        System.out.println("Rooms: " + jsonRooms);
         JSONArray jsona = new JSONArray(jsonRooms);
         List<Room> rooms = new ArrayList();
         Room room;
@@ -75,7 +70,6 @@ public class SearchRooms extends HttpServlet {
 
         BookingFacadeREST bookingFacadeREST = new BookingFacadeREST();
         String jsonbooking = bookingFacadeREST.findAll_JSON(String.class);
-        System.out.println("Bookings: " + jsonbooking);
         JSONArray jsonArrayBooking = new JSONArray(jsonbooking);
         List<Room> notAvailableRooms = new ArrayList();
         Booking booking;
@@ -101,11 +95,8 @@ public class SearchRooms extends HttpServlet {
             Logger.getLogger(SearchRooms.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        System.out.println("Rooms before: " + rooms.size());
         rooms.removeAll(notAvailableRooms);
         
-        System.out.println("Not available room: " + notAvailableRooms.size());
-        System.out.println("Rooms after: " + rooms.size());
         request.setAttribute("rooms", rooms);
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/rooms.jsp");
         dispatcher.forward(request, response);

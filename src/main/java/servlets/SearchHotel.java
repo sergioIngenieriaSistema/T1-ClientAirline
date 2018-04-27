@@ -43,13 +43,14 @@ public class SearchHotel extends HttpServlet {
         String entryDate = request.getParameter("entryDate");
         String departureDate = request.getParameter("departureDate");
         
-        System.out.println("Entry date in HOTEL: " + entryDate);
-        System.out.println("Departure date in HOTEL: " + departureDate);
+        if (entryDate == null) {
+            response.sendRedirect("hotels.jsp");
+            return;
+        }
         
         Gson gson = new Gson();
         HotelFacadeREST hotelFacadeREST = new HotelFacadeREST();
         String hotels = hotelFacadeREST.findAll_JSON(String.class);
-        System.out.println("Hotels: " + hotels);
         List<Hotel> allHotels = new ArrayList();
         
         JSONArray jsona = new JSONArray(hotels);

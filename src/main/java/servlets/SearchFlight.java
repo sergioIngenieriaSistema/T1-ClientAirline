@@ -43,7 +43,6 @@ public class SearchFlight extends HttpServlet {
         Gson gson = new Gson();
         FlightFacadeREST flightFacadeREST = new FlightFacadeREST();
         String flights = flightFacadeREST.findAll_JSON(String.class);
-        System.out.println("Flights: " + flights);
         
         List<Flight> allFlights = new ArrayList();
         List<Flight> departureFlights = new ArrayList();
@@ -51,6 +50,7 @@ public class SearchFlight extends HttpServlet {
 
         JSONArray jsona = new JSONArray(flights);
         JSONObject jsono;
+        
         for (int i = 0; i < jsona.length(); i++) {
             jsono = (JSONObject) jsona.get(i);
             allFlights.add(gson.fromJson(jsono.toString(), Flight.class));

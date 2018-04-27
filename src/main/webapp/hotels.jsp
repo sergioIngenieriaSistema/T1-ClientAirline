@@ -5,43 +5,55 @@
 --%>
 <%@page import="model.hotel.Hotel"%>
 <%@page import="java.util.List"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Hoteles</title>
-    </head>
-    <body>
-        <c:if test="${hotels.size() != 0 }">
-            <table>
-                <caption>Hoteles</caption>
-                <thead>
+<%@ include file = "includes/header.jsp" %>
+
+<div class="container my-5 p-2">
+    <form class="row justify-content-center" action="SearchHotel" method="post">
+        <div class="mx-4">
+            <label for="entryDate">Fecha de entrada:</label>
+            <input id="entryDate" type="date" name="entryDate" required>
+        </div>
+        <div class="mx-4">
+            <label for="departureDate">Fecha de salida: </label>
+            <input id="departureDate" type="date" name="departureDate" required>
+        </div>
+        <div class="mx-4">
+            <input class="btn btn-success" type="submit" value="Buscar hoteles">
+        </div>
+    </form>
+</div>
+
+
+<c:if test="${hotels.size() != 0 && hotels != null}">
+    <div class="container">
+        <table class="table table-striped table-hover table-sm">
+            <caption>Hoteles</caption>
+            <thead class="w3-card text-white">
+                <tr>
+                    <th>ID</th>
+                    <th>NOMBRE</th>
+                    <th>DIRECCI”N</th>
+                    <th>TEL…FONO</th>
+                    <th>N∫ DE HABITACIONES</th>
+                    <th>CATEGORÕA</th>
+                    <th>Detalles</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach var="hotel" items="${hotels}">
                     <tr>
-                        <th>ID</th>
-                        <th>NOMBRE</th>
-                        <th>DIRECCI√ìN</th>
-                        <th>TEL√âFONO</th>
-                        <th>N¬∫ DE HABITACIONES</th>
-                        <th>CATEGOR√çA</th>
-                        <th>Detalles</th>
+                        <td>${hotel.id}</td>
+                        <td>${hotel.name}</td>
+                        <td>${hotel.address}</td>
+                        <td>${hotel.phone}</td>
+                        <td>${hotel.numRooms}</td>
+                        <td>${hotel.category}</td>
+                        <td><a class="btn btn-primary" href="SearchRooms?hotelid=${hotel.id}&entryDate=${entryDate}&departureDate=${departureDate}">Ver habitaciones</a></td>
                     </tr>
-                </thead>
-                <tbody>
-                    <c:forEach var="hotel" items="${hotels}">
-                        <tr>
-                            <td>${hotel.id}</td>
-                            <td>${hotel.name}</td>
-                            <td>${hotel.address}</td>
-                            <td>${hotel.phone}</td>
-                            <td>${hotel.numRooms}</td>
-                            <td>${hotel.category}</td>
-                            <td><a href="SearchRooms?hotelid=${hotel.id}&entryDate=${entryDate}&departureDate=${departureDate}">Ver habitaciones</a></td>
-                        </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
-        </c:if>
-    </body>
-</html>
+                </c:forEach>
+            </tbody>
+        </table>
+    </div>
+</c:if>
+
+<%@ include file = "includes/footer.jsp" %>
