@@ -4,7 +4,7 @@
     Author     : sldia
 --%>
 
-<footer class="bg-secondary" style="text-align: center; padding: 40px;">
+<footer class="bg-dark text-white" style="text-align: center; padding: 40px;">
     <p>Copyright © 2018</p>
 </footer>
 
